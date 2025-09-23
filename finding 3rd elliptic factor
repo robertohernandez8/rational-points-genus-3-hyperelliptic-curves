@@ -1,0 +1,12 @@
+R<a> := FunctionField(Rationals());
+P<x> := PolynomialRing(R);
+C := HyperellipticCurve(x^8 + (4-4*a^4)*x^6 + (8*a^4+6)*x^4 + (4-4*a^4)*x^2 + 1);
+H := HyperellipticCurve(x^4 - a^2*x^2 + 1);
+E, Psi := EllipticCurve(H);
+K<x,y> := FunctionField(C);
+phi := map< C -> C | [1,y,-x]>;
+Phi := DefiningEquations(ProjectiveClosure(phi));
+G := Automorphism(C, [Phi[1], Phi[2], Phi[3]]);
+H := AutomorphismGroup(C,[G]);
+E2, prj := CurveQuotient(H);
+E2;
