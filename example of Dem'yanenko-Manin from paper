@@ -1,0 +1,39 @@
+Q := Rationals();
+P<x> := PolynomialRing(Q);
+
+a := 21;
+C := HyperellipticCurve(x^8 + (4-4*a^4)*x^6 + (8*a^4+6)*x^4 + (4-4*a^4)*x^2 + 1);
+
+H := HyperellipticCurve(x^4 - a^2*x^2 + 1);
+cc := AffinePatch(C,1);
+ee := AffinePatch(H,1);
+E, Psi := EllipticCurve(H);
+F<x,y> := FunctionField(C);
+
+Phi1 := map< cc -> ee | [-2*a*cc.1/(cc.1^2 + 1), cc.2/(cc.1^2+1)^2]>;
+
+Phi11 := DefiningEquations(ProjectiveClosure(Phi1) * Psi);
+
+CF := BaseChange(C,F);
+Phi1 := map< CF -> E | [Phi11[1], Phi11[2], Phi11[3]]>;
+
+Torsion, map := TorsionSubgroup(E);
+torsionPoints := { Eltseq(t) : t in Torsion };
+TPonEC := SetToSequence(map(torsionPoints));
+
+P1 := E![-a^2,2*a];
+HP := CanonicalHeight(P1);
+n := Floor(((51.18 + 2*Log(a))/HP + 1)/2);
+
+RationalPointsOnC := [];
+
+for P in TPonEC do
+    for i in [-n..n] do
+        R := SetToSequence(RationalPoints(Pullback(Phi1,i*P1 + P)));
+        for j in [1..#R] do
+            Append(~RationalPointsOnC, R[j]);
+        end for; 
+    end for;
+end for;
+
+SetToSequence(Set(RationalPointsOnC));
