@@ -1,0 +1,36 @@
+// Find relationship between F1(X,1) and G1(X,1)
+
+K<a> := FunctionField(Rationals());
+R<x> := PolynomialRing(K);
+
+F1_x := (-2-a^2)*x^4 - 6*x^2 + (-2-a^2);
+G1_x := x^4 + 2*x^2 + 1;
+
+GCD, h_1x, h_2x := XGCD(F1_x, G1_x);
+
+GCD, h_1x, h_2x;
+
+// Find relationship between F1(1,Z) and G1(1,Z)
+
+R<z> := PolynomialRing(K);
+F1_z := (-2 - a^2) - 6*z^2 + (-2 - a^2)*z^4;
+G1_z := 1 + 2*z^2 + z^4;
+
+GCD, h_1z, h_2z := XGCD(F1_z, G1_z);
+
+GCD, h_1z, h_2z;
+
+// Verify relationship between F1(X,Z) and G1(X,Z)
+
+R<x,z> := PolynomialRing(K,2);
+F1 := (-2 - a^2)*x^4 - 6*x^2*z^2 + (-2 - a^2)*z^4;
+G1 := x^4 + 2*x^2*z^2 + z^4;
+
+r_x := -1/2/(a^2 - 1)*x^2*z^2 - 1/(a^2 - 1)*z^4;
+s_x := (-1/2*a^2 - 1)/(a^2 - 1)*x^2*z^2 - 3/(a^2 - 1)*z^4;
+
+r_z := -1/2/(a^2 - 1)*x^2*z^2 - 1/(a^2 - 1)*x^4;
+s_z := (-1/2*a^2 - 1)/(a^2 - 1)*x^2*z^2 - 3/(a^2 - 1)*x^4;
+
+F1*r_x + G1*s_x;
+F1*r_z + G1*s_z;
