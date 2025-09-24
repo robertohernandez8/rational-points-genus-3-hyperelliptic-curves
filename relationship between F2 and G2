@@ -1,0 +1,36 @@
+// Find relationship between F2(X,1) and G2(X,1)
+
+K<a> := FunctionField(Rationals());
+R<x> := PolynomialRing(K);
+
+F2_x := (a^2 - 2)*x^4 + (-12*a^2 - 6)*x^2 + (a^2 - 2);
+G2_x := x^4 + 2*x^2 + 1;
+
+GCD, h_1x, h_2x := XGCD(F2_x, G2_x);
+
+GCD, h_1x, h_2x;
+
+// Find relationship between F2(1,Z) and G2(1,Z)
+
+R<z> := PolynomialRing(K);
+F2_z := (a^2 - 2) + (-12*a^2 - 6)*z^2 + (a^2 - 2)*z^4;
+G2_z := 1 + 2*z^2 + z^4;
+
+GCD, h_1z, h_2z := XGCD(F2_z, G2_z);
+
+GCD, h_1z, h_2z;
+
+// Verify relationship between F2(X,Z) and G2(X,Z)
+
+R<x,z> := PolynomialRing(K,2);
+F2 := (a^2 - 2)*x^4 + (-12*a^2 - 6)*x^2*z^2 + (a^2 - 2)*z^4;
+G2 := x^4 + 2*x^2*z^2 + z^4;
+
+r_x := 1/14/(a^2 + 1/7)*x^2*z^2 + 1/7/(a^2 + 1/7)*z^4;
+s_x := (-1/14*a^2 + 1/7)/(a^2 + 1/7)*x^2*z^2 + (6/7*a^2 + 3/7)/(a^2 + 1/7)*z^4;
+
+r_z := 1/14/(a^2 + 1/7)*z^2*x^2 + 1/7/(a^2 + 1/7)*x^4;
+s_z := (-1/14*a^2 + 1/7)/(a^2 + 1/7)*z^2*x^2 + (6/7*a^2 + 3/7)/(a^2 + 1/7)*x^4;
+
+F2*r_x + G2*s_x;
+F2*r_z + G2*s_z;
