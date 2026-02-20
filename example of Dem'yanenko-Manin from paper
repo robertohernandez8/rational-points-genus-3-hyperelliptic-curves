@@ -23,7 +23,7 @@ TPonEC := SetToSequence(map(torsionPoints));
 
 P1 := E![-a^2,2*a];
 HP := CanonicalHeight(P1);
-n := Floor(((49.93 + Log(9*a^2 + 7))/HP + 1)/2);
+n := Floor(((49.93 + Log(12*a^2 + 10))/HP + 1)/2);
 
 RationalPointsOnC := [];
 
